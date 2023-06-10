@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import Spinner from './Spinner';
+import { ReactSortable } from 'react-sortablejs';
 
 export default function ProductForm({
   _id,
@@ -51,6 +53,10 @@ export default function ProductForm({
     }
   }
 
+  function updateImagesOrder(images) {
+    setImages(images);
+  }
+
   return (
     <form onSubmit={saveProduct}>
       <label> Product Name</label>
@@ -61,13 +67,24 @@ export default function ProductForm({
         onChange={(ev) => setTitle(ev.target.value)}
       />
       <label> Photos </label>
-      <div className="mb-2 flex  flex-wrap gap-2">
-        {!!images?.length &&
-          images.map((link) => (
-            <div key={link} className="h-24 ">
-              <img src={link} alt="" className="rounded-lg" />
-            </div>
-          ))}
+      <div className="mb-2 flex  flex-wrap gap-1">
+        <ReactSortable
+          list={images}
+          className="flex flex-wrap gap-1"
+          setList={updateImagesOrder}
+        >
+          {!!images?.length &&
+            images.map((link) => (
+              <div key={link} className="h-24 ">
+                <img src={link} alt="" className="rounded-lg" />
+              </div>
+            ))}
+        </ReactSortable>
+        {isUploading && (
+          <div className="h-24 p-1  flex items-center">
+            <Spinner />
+          </div>
+        )}
         <label className="w-24 h-24 cursor-pointer text-center flex items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200">
           <svg
             xmlns="http://www.w3.org/2000/svg"
