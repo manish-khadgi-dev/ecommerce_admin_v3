@@ -1,3 +1,5 @@
+import Layout from '@/components/Layout';
+
 export default function orders() {
-  return <div> Order page goes here </div>;
+  return <Layout> Order page goes here </Layout>;
 }
