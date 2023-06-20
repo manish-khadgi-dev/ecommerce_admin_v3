@@ -17,9 +17,10 @@ export default function OrderPage() {
       <table className="basic mt-4">
         <thead>
           <tr>
-            <td>ID</td>
-            <td>Recipient</td>
-            <td>products</td>
+            <th>ID</th>
+            <th>Paid</th>
+            <th>Recipient</th>
+            <th>products</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +28,9 @@ export default function OrderPage() {
             orders.map((order) => (
               <tr>
                 <td>{new Date(order.createdAt).toLocaleString()}</td>
+                <td className={order.paid ? 'text-green-600' : 'text-red-600'}>
+                  {order.paid ? 'YES' : 'No'}
+                </td>
                 <td>
                   {order.name} {order.email} <br />
                   {order.ciry} {order.postCode} {order.country} <br />
